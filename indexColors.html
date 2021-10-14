@@ -1,0 +1,70 @@
+﻿<html>
+<head>
+<style>
+#field td {
+	width: 50px;
+	height: 50px;
+	border: 1px solid black;
+	text-align: center;
+	font-weight: bold;
+} 
+.red {
+	background: red;
+}
+.green {
+	background: green;
+}
+.blue {
+	background: blue;
+}
+</style>	
+
+</head>
+<body>
+<table id="field"></table>
+
+
+
+<script>
+let rows = 3;
+let cols = 3;
+
+let colors = ['red', 'green', 'blue'];
+
+let field = document.querySelector('#field');
+
+for(let i = 0; i < rows; i++){
+	let row = field.insertRow(i);
+	for(let j = 0; j < cols; j++){
+		row.insertCell(j)
+	}//for
+}//for
+
+
+///////////////////
+let tdAll = document.querySelectorAll('td');
+
+
+for (let i = 0; i < tdAll.length; i++) {
+	let colorClass = pushColor(colors);
+	tdAll[i].classList.add(colorClass);
+}
+
+//////////////////////////////
+function pushColor(colors){
+  let randomNum = Math.floor(Math.random() * 3);
+  return colors[randomNum];
+}//pushcolor
+//////////////////////////////////
+function elemColors(colors, color){
+
+	
+
+}//elemColors
+
+
+</script>
+
+
+</body>
+</html>
