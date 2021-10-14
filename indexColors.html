@@ -53,6 +53,8 @@ for (let i = 0; i < tdAll.length; i++) {
 		let nextColor = elemColors(classNameOne, colors);
 		//console.log(nextColor);
 		tdAll[i].className = nextColor;
+		let boolColorAllTd = testColors(nextColor);
+		if(boolColorAllTd){tdAll[i].innerHTML = 'победа';}
 	});
 }
 
@@ -72,6 +74,14 @@ function elemColors(classNameOne, colors){
 
 }//elemColors
 ///////////////////////////////////
+function testColors(nextColor){
+	let k = 0;
+	for (let i = 0; i < tdAll.length; i++) {
+		if(tdAll[i].className == nextColor){k++;}		
+	}//for
+	return k == 9 ? true : false
+
+}//testColors
 
 
 </script>
