@@ -33,12 +33,24 @@ let colors = ['red', 'green', 'blue'];
 
 let field = document.querySelector('#field');
 
+let caption = document.createElement('caption');
+
+
+let clickNumber = 0;
+
+//caption.innerHTML = clickNumber;
+
+field.appendChild(caption);
+
+
+
 for(let i = 0; i < rows; i++){
 	let row = field.insertRow(i);
 	for(let j = 0; j < cols; j++){
 		row.insertCell(j)
 	}//for
 }//for
+
 
 
 ///////////////////
@@ -48,15 +60,19 @@ let tdAll = document.querySelectorAll('td');
 for (let i = 0; i < tdAll.length; i++) {
 	let colorClass = pushColor(colors);
 	tdAll[i].classList.add(colorClass);
+
 	tdAll[i].addEventListener('click', function(event) {
 		let classNameOne = tdAll[i].className;
 		let nextColor = elemColors(classNameOne, colors);
 		//console.log(nextColor);
 		tdAll[i].className = nextColor;
+		clickNumber++;
+		caption.innerHTML = clickNumber;
 		let boolColorAllTd = testColors(nextColor);
 		if(boolColorAllTd){tdAll[i].innerHTML = 'победа';}
-	});
-}
+	});//tdAll[i].addEventListener
+
+}//for
 
 //////////////////////////////
 function pushColor(colors){
