@@ -1,4 +1,4 @@
-﻿<html>
+<html>
 <head>
 <style>
 #parent {
@@ -27,6 +27,149 @@
 
 <script>
 let field = document.querySelector('#field');
+////////////////////////////
+
+
+//let size = 2;
+
+start(2);
+
+function start(size) {
+    activate(build(field, prepare(size)), size);
+}
+// let cells = build(field, prepare(size));
+
+// console.log('cells ', cells);
+
+// activate(cells);
+
+
+//////////////////////////////////////
+function build(field, arr) {
+
+    let rows = arr.length;
+
+    let cols = arr[0].length; 
+
+
+    field.innerHTML = '';
+    
+    for(let i = 0; i < rows; i++){
+	let row = field.insertRow(i);
+        for(let j = 0; j < cols; j++){
+            row.insertCell(j).innerHTML = arr[i][j];
+        }//for
+    }//for
+
+    let arrTd = document.querySelectorAll('td');
+
+    return arrTd
+
+}
+
+////////////////////////////////////// 
+function range(count) {
+	let arrOne = [];
+    for (let i = 0; i < count; i++) {
+        arrOne[i] = i + 1;        
+    }
+    console.log('1  ', arrOne);
+    return arrOne;
+}
+//////////////////////////////////////
+function shuffle(arr) {
+    //arrTwo = arr;
+
+    function randomNum(num){
+        return Math.floor(Math.random() * num);
+    }
+	
+    
+    for (let i = 0; i < arr.length; i++) {
+        //let kArr = arr[i];
+        let rand = randomNum(arr.length - 1);
+        let kRand = arr[rand];
+       
+        arr[rand] = arr[i];
+        arr[i] = kRand;
+
+    }//for
+
+    console.log('2  ', arr);
+    return arr;
+}
+//////////////////////////////////////
+function chunk(arr, n) {
+/*    let arrOne = [];
+    let arrTwo = [];
+
+	for (let i = 0; i < n; i++) {
+        arrOne[i] = arr[i];
+        
+    }
+
+    for (let i = 0; i < n; i++) {
+        arrTwo[i] = arr[n + i];       
+    }
+
+    console.log('3  ', [arrOne, arrTwo ]);
+    return [arrOne, arrTwo ]*/
+
+
+    let arrBig = [];
+    arrBig.length = n;
+    let arrSmall = [];
+    arrSmall.length = n;
+
+    let k = 0;
+
+    for (let i = 0; i < arrBig.length; i++) {
+        for (let j = 0; j < arrSmall.length; j++) {
+            arrSmall[j] = arr[k];
+           // console.log(k, arrSmall[j]);
+            k++;
+        }//for
+        arrBig[i] = arrSmall;
+        //console.log('arrBig ',arrBig[i]);
+        arrSmall = [];
+        arrSmall.length = n;
+    }//for
+    console.log('3  ', arrBig);
+    return arrBig;
+
+
+
+}// function chunk
+//////////////////////////////////////
+function prepare(size) {
+	let arr = [];
+	
+	arr = range(size * size);
+	arr = shuffle(arr);
+	arr = chunk(arr, size);
+	
+    console.log('4  ', arr);
+	return arr;
+}
+//////////////////////////////////////
+function activate(cells, size) {
+    let counter = 1; // счетчик
+    let last = size * size;
+    
+    for (let cell of cells) {
+        cell.addEventListener('click', function() {
+            if(this.innerHTML == counter){
+                this.classList.add('active');
+                counter++;
+                if (counter == last + 1) {
+                    start(size + 1);
+                }//if
+            }//if
+        }); // cell.addEventListener
+    }
+}
+
+
 
 </script>
 
