@@ -9,17 +9,33 @@
     display: inline-block;
 }
 #calendar td, #calendar th {
-    padding: 5px 12px;
+    padding: 10px;
     border: 1px solid black;
     text-align: center;
 }
 
+#calendar .nav, #calendar .info {
+    text-align: center;
+}
+#calendar a {
+    color: blue;
+    font-size: 25px;
+    text-decoration: none;
+}
+#calendar a:hover {
+    color: red;
+}
+
+#calendar .active {
+    color: red;
+}
 </style>	
 
 </head>
 <body>
 <div id="parent">
     <div id="calendar">
+    <div class="info"></div>
         <table>
             <thead>
                 <tr>
@@ -34,6 +50,12 @@
             </thead>
             <tbody class="body"></tbody>
         </table>
+
+        <div class="nav">
+            <a href="#" class="prev">←</a>
+            <a href="#" class="next">→</a>
+        </div>
+
     </div>
 </div>
 
@@ -42,19 +64,41 @@
 let calendar = document.querySelector('#calendar');
 let body = calendar.querySelector('.body');
 
+let info = document.querySelector('.info');
+
 let date  = new Date();
 let year  = date.getFullYear();
 let month = date.getMonth();
+
+draw(body, year, month)
 ////////////////////////////////
 
-console.log(date);
+//console.log(date);
 
-let arr = range(getLastDay(year, month));
+function draw(body, year, month) {
 
-let firstWeekDay = getFirstWeekDay(year, month);
-let lastWeekDay  = getLastWeekDay(year, month);
+    let arr = range(getLastDay(year, month));
 
-console.log(firstWeekDay, lastWeekDay)
+    let firstWeekDay = getFirstWeekDay(year, month);
+    let lastWeekDay  = getLastWeekDay(year, month);
+
+    //console.log(firstWeekDay, lastWeekDay)
+
+
+    let nums = chunk(normalize(arr, firstWeekDay, 6 - lastWeekDay), 7);
+
+    /////
+    let monthString = date.toLocaleString("ru", {month: 'long',});
+
+    info.innerHTML = `${monthString} ${year}`;
+    /////
+
+    createTable(body, nums);
+}//draw
+
+//let res = chunk(normalize(arr, firstWeekDay, 6 - lastWeekDay), 7);
+//console.log('res ', res);
+
 //////////////////////////////////
 //range(12);
 function range(count) {
@@ -71,13 +115,13 @@ function range(count) {
 
 function getLastDay(year, month) {
     let date = new Date(year, month + 1, 0);
-    console.log('date', date)
+  //  console.log('date', date)
     return date.getDate();
 }
 /////////////////////
 function getFirstWeekDay(year, month) {
     let date = new Date(year, month, 1);
-    console.log('dateF', date);
+   // console.log('dateF', date);
 
     let dayWeek = date.getDay();   
 
@@ -93,7 +137,7 @@ function getFirstWeekDay(year, month) {
 /////////////////////
 function getLastWeekDay(year, month) {
     let date = new Date(year, month + 1, 0);
-    console.log('dateL', date)
+   // console.log('dateL', date)
     
     let dayWeek = date.getDay();   
 
@@ -109,10 +153,62 @@ function getLastWeekDay(year, month) {
 /////////////////////
 
 function normalize(arr, left, right) {
-    
+    for (let i = 0; i < left; i++) {
+        arr.unshift(' ');
+    }//for
+
+    for (let i = 0; i < right; i++) {
+        arr.push(' ');
+    }//for
+
+    return arr;
 }
 
 //////////////////////
+function chunk(arr, n) {
+    
+    let arrBig = [];
+   
+    let k = 0;
+
+    while(k < arr.length){
+   
+        let arrSmall = [];
+        arrSmall.length = n;
+
+        for (let j = 0; j < arrSmall.length; j++) {
+            arrSmall[j] = arr[k];          
+            k++;
+        }//for
+        
+        arrBig.push(arrSmall);
+        
+    }//while
+
+    return arrBig;
+
+}
+/////////////////////
+function createTable(parent, arr) {
+
+
+    
+
+    for(let i = 0; i < arr.length; i++){
+        let tr = document.createElement('tr');
+
+        for(let j = 0; j < arr[i].length; j++){
+            let td = document.createElement('td');
+            td.innerHTML = arr[i][j];
+            tr.appendChild(td);
+        }//for
+        parent.appendChild(tr);
+    }//for
+
+
+     
+}
+////////////////////
 
 //console.log( range(getLastDay(2021, 10)) )
 
