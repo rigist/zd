@@ -1,0 +1,172 @@
+﻿<html>
+<style>
+* {
+	box-sizing: border-box;
+}
+#parent {
+	margin: 0 auto;
+	width: 500px;
+}
+
+#form {
+	display: flex;
+	margin-bottom: 15px;
+}
+#form input {
+	padding: 8px;
+	width: 24%;
+	margin: 0 0.5% 10px 0.5%;
+}
+
+h2 {
+	margin-top: 0;
+	margin-bottom: 7px;
+}
+
+#table {
+	width: 100%;
+	margin-bottom: 10px;
+}
+#table td, #table th {
+	padding: 8px;
+	text-align: center;
+	border: 1px solid black;
+}
+#table td.remove {
+	color: blue;
+	cursor: pointer;
+	text-decoration: underline;
+}
+#table td.remove:hover {
+	text-decoration: none;
+}
+
+#result {
+	text-align: right;
+	margin-right: 10px;
+} 
+</style>
+
+<body>
+<div id="parent">
+	<div id="form">
+		<input id="name" placeholder="название">
+		<input id="price" placeholder="цена">
+		<input id="amount" placeholder="количество">
+		<input id="add" type="button" value="добавить">
+	</div>
+	
+	<h2>Таблица продуктов:</h2>
+	<table id="table">
+		<tr>
+			<th>название</th>
+			<th>цена</th>
+			<th>кол-во</th>
+			<th>сумма</th>
+			<th>удалить</th>
+		</tr>
+	</table>
+	<div id="result">
+		общий итог: <span id="total">0</span>
+	</div>
+</div> 
+ 
+ 
+<script>
+let name   = document.querySelector('#name');
+let price  = document.querySelector('#price');
+let amount = document.querySelector('#amount');
+let add    = document.querySelector('#add');
+let table  = document.querySelector('#table');
+let total  = document.querySelector('#total');
+////////////////////////
+
+
+add.addEventListener('click', function() {
+	let tr = document.createElement('tr');
+	
+	allowEdit(createCell(tr, name.value, 'name'));
+	allowEdit(createCell(tr, price.value, 'price'));
+	allowEdit(createCell(tr, amount.value, 'amount'));
+	createCell(tr, price.value * amount.value, 'cost');
+
+	createCell(tr, 'удалить', 'remove').addEventListener('click', function() {
+		tr.remove();
+		recountTotal();
+	});  // createCell( ).addEventListener
+	
+	table.appendChild(tr);
+
+	recountTotal();
+}); //add.addEventListener
+
+///////////////////////////////
+function createCell(tr, value, name) {
+			
+	td = document.createElement('td');
+	td.innerHTML = value;
+	td.classList.add(name);
+	tr.appendChild(td);
+
+	return td;
+
+
+} //createCell
+//////////////////////////////////
+
+function recountTotal() {
+	let costs = table.querySelectorAll('.cost');
+
+	let sumCosts = 0;
+	
+	if (costs) {
+		// находим сумму и записываем ее в #total
+		for(let i = 0; i < costs.length; i++){
+			sumCosts = sumCosts + +costs[i].innerHTML;
+		} //for
+
+	total.innerHTML = sumCosts;
+	} //if
+}  //recountTotal()
+////////////////////////
+
+function allowEdit(td) {
+	td.addEventListener('dblclick', function() {
+		inputOne = document.createElement('input');
+		inputOne.setAttribute('type', 'text');
+		inputOne.value = td.innerHTML;
+		td.innerHTML = "";
+
+		inputOne.addEventListener('keypress', function(event) {
+		if (event.key == 'Enter'){
+
+			td.innerHTML = this.value;
+
+			if (td.classList.contains('price') || td.classList.contains('amount')) {
+
+					let trOne = td.closest("tr");
+					let costOne = trOne.querySelector('.cost');
+					let priceOne = trOne.querySelector('.price');
+					let amountOne = trOne.querySelector('.amount');
+					//console.log( priceOne);
+					//console.log(  amountOne);
+					costOne.innerHTML = +priceOne.innerHTML * +amountOne.innerHTML;
+					recountTotal();
+			}//if
+
+		}//if
+
+		});//inputOne.addEventListener
+
+		td.appendChild(inputOne);
+	});
+} // function allowEdit(td) 
+////////////////
+
+</script>
+
+</body>
+</html>
+
+
+
