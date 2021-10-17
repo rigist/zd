@@ -66,6 +66,9 @@ let body = calendar.querySelector('.body');
 
 let info = document.querySelector('.info');
 
+let prev = calendar.querySelector('.prev');
+let next = calendar.querySelector('.next');
+
 let date  = new Date();
 let year  = date.getFullYear();
 let month = date.getMonth();
@@ -75,29 +78,35 @@ draw(body, year, month)
 
 //console.log(date);
 
+//console.log(year, month);
+
+
+////////////////////////////////////////
 function draw(body, year, month) {
 
     let arr = range(getLastDay(year, month));
-
     let firstWeekDay = getFirstWeekDay(year, month);
-    let lastWeekDay  = getLastWeekDay(year, month);
-
-    //console.log(firstWeekDay, lastWeekDay)
-
-
+    let lastWeekDay  = getLastWeekDay(year, month);   
     let nums = chunk(normalize(arr, firstWeekDay, 6 - lastWeekDay), 7);
-
-    /////
-    let monthString = date.toLocaleString("ru", {month: 'long',});
-
+    
+    now = new Date(year, month);
+    let monthString = now.toLocaleString("ru", {month: 'long',});
     info.innerHTML = `${monthString} ${year}`;
-    /////
-
+    
     createTable(body, nums);
 }//draw
 
 //let res = chunk(normalize(arr, firstWeekDay, 6 - lastWeekDay), 7);
 //console.log('res ', res);
+
+
+next.addEventListener('click', function() {
+    draw(body, getNextYear(year, month), getNextMonth(month));
+});
+
+prev.addEventListener('click', function() {
+    draw(body, getPrevYear(year, month), getPrevMonth(month));
+});
 
 //////////////////////////////////
 //range(12);
@@ -192,7 +201,7 @@ function chunk(arr, n) {
 function createTable(parent, arr) {
 
 
-    
+    parent.innerHTML = "";
 
     for(let i = 0; i < arr.length; i++){
         let tr = document.createElement('tr');
@@ -209,6 +218,46 @@ function createTable(parent, arr) {
      
 }
 ////////////////////
+function getNextYear(yearOne, monthOne){
+
+  //  console.log(month == 11 ? year + 1 : year)
+
+    year = month == 11 ? year + 1 : year
+
+    return  year;
+
+}//function
+
+
+function getNextMonth(monthOne){
+
+    month = month == 11 ? month = 0 : month + 1
+    //console.log(month)
+    return month;
+
+}//function
+
+
+function getPrevYear(yearOne, monthOne){
+
+    year = month == 0 ? year - 1 : year
+
+    return  year;
+
+}//function
+
+
+function getPrevMonth(monthOne){
+
+    month = month == 0 ? month = 11 : month - 1;
+    //console.log(month)
+    return month;
+
+}//function
+
+
+
+///////////////////
 
 //console.log( range(getLastDay(2021, 10)) )
 
