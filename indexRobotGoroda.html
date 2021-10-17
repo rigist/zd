@@ -1,0 +1,264 @@
+﻿<html>
+<style>
+body{background-color: SaddleBrown;}
+</style>
+
+<body>
+<input id="field">
+<div id="message"></div>	
+ 
+
+<script>
+ 
+let field   = document.querySelector('#field');
+let message = document.querySelector('#message');
+
+message.innerText = ""
+
+let cities = [];
+
+let allCities = ['москва', 'анапа', 'волгоград', 'томск', 'омск', 'владимир', 'самара', 'новгород'];
+
+//console.log('allCities 111 ', allCities)
+
+///////////////////////////////
+
+field.addEventListener('keydown', viewTown)
+
+//////////////////////////////
+
+
+
+function viewTown(event) {
+
+	//log('viewTown');
+
+	if (event.code == 'Enter'){
+
+		if (cities.length == 0){
+
+			addTown();
+
+			console.log(cities);
+
+			robotInGame();
+
+		}//if
+
+		else{
+			testTown();
+		}//else
+
+	}//if (event.code == 'Enter')
+
+} //function viewTown
+
+///////////////////////////
+
+function addTown(){
+
+	//log('addTown');
+
+	cities.push(field.value.toLowerCase());
+
+	message.innerText = message.innerText + ` Вами введен город: ${field.value.toLowerCase()} | `
+
+	field.value = "";
+
+
+
+	robotTestTown();
+
+	
+
+
+
+} //function addTown()
+
+//////////////////////////
+
+function testTown(){
+
+	//log('testTown');
+
+	let townOne = cities[cities.length - 1];
+
+	let townTwo = field.value;
+
+	let testLetters = false;
+
+	testLetters = townTwo[0] == townOne[townOne.length - 1] ? true : false;
+
+	//log('testLetters = ', testLetters)
+
+
+	let townInArr = false;
+
+	townInArr = searchTown();
+
+	//log('townInArr =', townInArr)
+
+	if (testLetters && townInArr ){
+
+		addTown();
+
+		
+
+		//console.log(cities);
+		//console.log(allCities);
+
+		robotInGame();
+
+	}//if
+
+    else {
+
+    	changeMessage(testLetters, townInArr);
+
+    }//else
+
+	//log('testTown');
+
+
+}//function testTown()
+
+////////////////////////
+
+function searchTown(){
+
+	//log('searchTown');
+
+	for (let i of cities){
+
+		if(i == field.value){return false}
+
+	}//for
+
+	return true;
+
+
+} //function searchTown
+
+///////////////////////
+
+function changeMessage(testLetters, townInArr, msg = ""){
+
+	//log('changeMessage');
+
+	//let msg = ""
+
+		if (townInArr == false){
+
+			msg = " Данный город уже был | "
+
+		}//if
+		else if(testLetters == false){
+
+			msg = " Первая буква второго города не совпадает с последней буквой первого | "
+
+		}//else if
+
+	message.innerText = message.innerText + msg;
+
+}//function changeMessage()
+
+///////////////////////
+
+function robotTestTown(){
+
+	//log('robotTestTown')
+
+	//console.log('cities ', cities);
+
+	//console.log('allCities ', allCities);
+
+
+
+	for(let i = 0; i < allCities.length; i++){
+
+		if (cities[cities.length - 1] == allCities[i]){allCities[i] = undefined}//if
+		
+
+
+	}//for
+
+	//console.log('allCities undefined', allCities);
+
+} // function robotTestTown()
+
+//////////////////////
+
+function robotInGame(){   
+
+	//log('inGame')
+
+	let letterTempOne = cities[cities.length - 1];
+
+	let letterOne = letterTempOne[letterTempOne.length - 1]; //последняя буква
+
+	let bool = false;
+
+	for (let j = 0; j < allCities.length; j++){
+
+		
+
+		if ((allCities[j] != undefined)&&(allCities[j][0] == letterOne)){
+
+			
+			bool = robotWrite(allCities[j]);
+
+			allCities[j] = undefined;
+			//console.log(j , 'undefined')
+			//console.log(allCities);	
+			break;
+
+
+
+		}//if
+
+
+		
+
+
+
+	}//for
+
+	if(bool == false){
+
+			changeMessage(true, true, ` У Робота закончились города | `);
+
+	}//if
+
+}//function robotInGame()
+
+//////////////////////
+
+function robotWrite(city){
+
+	//console.log('robotWrite')
+
+	//console.log('city = ', city)
+
+	cities.push(city);
+
+	changeMessage(true, true, ` Роботом введен город: ${city}, введите свой город | `);
+
+	field.value = "";
+
+	console.log('cities robotWrite', cities)
+
+	return true;
+
+}//function robotWrite(city)
+
+///////////////////////
+
+function log(log){console.log(log);}
+
+</script>
+
+</body>
+</html>
+
+
+
