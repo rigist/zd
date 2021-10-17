@@ -1,0 +1,243 @@
+﻿<html>
+<style>
+#wrapper {
+	width: 500px;
+	margin: 0 auto;
+	position: relative;
+}
+
+#menu {
+	width: 150px;
+	position: absolute;
+	right: 105%;
+}
+#notes {
+	padding: 0;
+	margin: 0;
+}
+#notes li {
+	padding: 5px;
+	text-align: center;
+	margin-bottom: 10px;
+	border: 1px dashed gray;
+	list-style-type: none;
+	cursor: pointer;
+}
+#notes li:hover, #notes li.active {
+	background: #f1f1f1;
+}
+#create button {
+	width: 100%;
+	padding: 5px;
+}
+
+#text textarea {
+	width: 100%;
+	height: 400px;
+	box-sizing: border-box;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+#text button {
+	width: 100%;
+	height: 30px;
+}
+
+.activ {background-color: red; }
+
+.remove {color: red;
+margin-left: 50px;
+}
+
+</style>
+
+<body>
+<div id="wrapper">
+	<div id="menu">
+		<div id="notes">
+			<ul id="notes">
+
+			</ul>
+		</div>
+			<div id="create">
+				<button>новая запись</button>
+			</div>
+	</div>
+	<div id="text">
+		<textarea></textarea>
+		<button>сохранить</button>
+	</div>
+</div>
+ 
+ 
+<script>
+ let texts = [];
+
+
+let notes = document.querySelector('#notes');
+
+let create = document.querySelector('#create');
+
+let textArea = document.querySelector('#text textarea');
+
+let saveButton = document.querySelector('#text button');
+
+let secondButton = document.querySelector('#create button');
+
+
+
+///////////////////
+
+
+saveButton.setAttribute( 'data-mode', `create`);
+
+saveButton.addEventListener('click', () => {
+
+
+
+	let mode = saveButton.dataset.mode;
+	
+	if (mode == 'create') {
+		
+		funcCreate();
+		
+	}
+	
+	if (mode == 'update') {
+
+		funcUpdate();	 
+		 
+	}
+
+
+	
+
+
+});//saveButton.addEventListener
+
+
+//////////////////////////////////
+secondButton.addEventListener('click', () => {
+
+	saveButton.dataset.mode = 'create';
+
+	textArea.value = "";
+
+	clearActiveClass();
+
+	saveButton.innerHTML = "сохранить"
+
+
+});//secondButton.addEventListener
+
+/////////////////////////////////
+const funcCreate =  () => {
+
+	//console.log(textArea.value);
+
+	saveButton.innerHTML = "сохранить"
+
+	texts.push(textArea.value);
+
+	//console.log(texts);
+
+	let elementLi = document.createElement('li');
+
+	let spanOpen = document.createElement('span');
+
+	spanOpen.classList.add('open');
+
+	let spanRemove = document.createElement('span');
+
+	spanRemove.classList.add('remove');
+
+	spanOpen.innerHTML = `Запись ${texts.length}`;
+
+	spanRemove.innerHTML = `        X`;
+
+	elementLi.appendChild(spanOpen);
+
+	elementLi.appendChild(spanRemove);
+
+	//innerHTML = `${spanOpen} ${spanRemove}`;
+
+	elementLi.setAttribute( 'data-key', `${texts.length}`);
+
+	//console.log(elementLi.dataset.key);
+
+	let keyNum = elementLi.dataset.key;
+
+	//--------------
+
+	spanOpen.addEventListener('click', (event) => { 
+
+		//console.log(keyNum);
+
+		//console.log(texts[keyNum - 1]);
+
+		saveButton.setAttribute( 'data-key', `${event.target.getAttribute("data-key")}`);
+
+		textArea.value = texts[keyNum - 1];
+
+		clearActiveClass();
+//
+		spanOpen.closest("li").classList.toggle('activ');
+
+		saveButton.innerHTML = "редактировать";
+
+		saveButton.dataset.mode = 'update';
+
+
+
+	//------------------------
+
+
+	});//spanOpen.addEventListener
+
+
+	spanRemove.addEventListener('click', (event) => { 
+
+		spanRemove.closest("li").remove();
+
+		saveButton.innerHTML = "ЗАПИСЬ УСПЕШНО УДАЛЕНА"
+
+
+
+
+	});//spanRemove.addEventListener
+
+	//---------------
+	notes.appendChild(elementLi);
+
+	textArea.value = "";
+
+}; // funcCreate
+
+//////////////////////////////////
+const funcUpdate = () => {
+
+	let key = saveButton.dataset.key;
+
+	texts[key - 1] = textArea.value; 
+
+};// funcUpdate
+
+////////////////////
+
+const clearActiveClass = () => {
+	let ListOfLi = document.querySelectorAll('#notes li');
+
+		for (let i = 0; i < ListOfLi.length; i++){
+
+			ListOfLi[i].classList.remove('activ');
+
+		}; //for
+}//clearActiveClass
+
+</script>
+
+</body>
+</html>
+
+
+
