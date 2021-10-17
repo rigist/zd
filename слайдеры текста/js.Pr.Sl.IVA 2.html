@@ -1,0 +1,76 @@
+﻿<html>
+<body>
+
+<a href="#" id="left">←</a>
+<a href="#" id="right">→</a>
+<br>
+<img id="slider" src="" alt=''>
+
+
+
+
+</body>
+<script>
+
+let slider = document.querySelector('#slider');
+
+let left = document.querySelector('#left');
+
+let right = document.querySelector('#right');
+
+let texts = ['1.png', '2.png', '3.png'];
+
+arrLeng = texts.length;
+
+let i = 0;
+
+slider.setAttribute('src', texts[i]);
+
+slider.setAttribute('alt', texts[i]);
+
+
+
+let timerId = setInterval(() => {
+	
+	slider.setAttribute('src', texts[i]);
+
+	slider.setAttribute('alt', texts[i]);
+	
+	i++;
+	
+	if(i == arrLeng){i = 0}
+
+
+}, 1000); //setInterval
+
+left.addEventListener('click', function() {
+	
+	i--;
+
+	i == -1 ? i = arrLeng - 1 : i;
+
+	slider.setAttribute('src', texts[i]);
+
+	slider.setAttribute('alt', texts[i]);
+
+
+});
+
+right.addEventListener('click', function() {
+
+	i++;
+
+	i == arrLeng ? i = 0 : i;
+
+	slider.setAttribute('src', texts[i]);
+
+	slider.setAttribute('alt', texts[i]);
+});
+
+
+
+/////////////////////////
+
+
+</script>
+</html>

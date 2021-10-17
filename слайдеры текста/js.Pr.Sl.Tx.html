@@ -1,0 +1,30 @@
+﻿<html>
+<body>
+
+
+<div id="slider"></div>
+</body>
+<script>
+
+let texts = ['text1', 'text2', 'text3'];
+
+let divSlider = document.querySelector('#slider');
+
+let i = 0;
+
+let timerId = setInterval(() => {
+
+	
+
+	divSlider.innerHTML = texts[i];
+	
+	i++;
+	
+	if(i == 3){i =0}
+
+
+}, 1000);  //setInterval
+
+
+</script>
+</html>

@@ -1,0 +1,42 @@
+﻿<html>
+<body>
+
+<img id="slider" src="" alt=''>
+
+
+
+
+</body>
+<script>
+
+let slider = document.querySelector('#slider');
+
+let texts = ['1.png', '2.png', '3.png'];
+
+let i = 0;
+
+slider.setAttribute('src', texts[i]);
+
+slider.setAttribute('alt', texts[i]);
+
+
+
+let timerId = setInterval(() => {
+	
+	slider.setAttribute('src', texts[i]);
+
+	slider.setAttribute('alt', texts[i]);
+	
+	i++;
+	
+	if(i == texts.length){i = 0}
+
+
+}, 1000); //setInterval
+
+
+/////////////////////////
+
+
+</script>
+</html>
