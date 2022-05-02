@@ -1,38 +1,36 @@
-htmlacademy.ru
+1. htmlacademy.ru
 
-code  mu
+1. code  mu
 
-udemy
+1. code camp
 
-роллинг  https://github.com/rolling-scopes-school/tasks/tree/master/stage0
+1. udemy
 
-100 дней  https://abatickaya.medium.com/100daysofcode-7584c0ddfc1a
+1. роллинг  https://github.com/rolling-scopes-school/tasks/tree/master/stage0
 
+1. 100 дней  https://abatickaya.medium.com/100daysofcode-7584c0ddfc1a
 
-книга реакт
+1. книга реакт
 
-нетология реакт 14 верстка бесплатно
+1. нетология реакт 14 верстка бесплатно
 
-лофтскул верстк 18,5  разраб 24
+1. лофтскул верстк 18,5  разраб 24
 
-wayup
+1. wayup
 
-metatit
+1. metatit
 
-webref
+1. webref
 
-intuit
+1. intuit
 
-proglib
+1. proglib
 
-devman 1 ур
+1. devman 1 ур
 
-code camp
+1. Front map
 
-Front map
+1. webdev
+1. ulbi
 
-
-webdev
-ulbi
-
-https://ru.hexlet.io/courses/js-react?utm_source=site&utm_medium=referral&utm_campaign=habr_education_centers  3900 react и все
+1. https://ru.hexlet.io/courses/js-react?utm_source=site&utm_medium=referral&utm_campaign=habr_education_centers  3900 react и все
