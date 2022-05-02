@@ -1,10 +1,14 @@
-1. htmlacademy.ru
+1. https://htmlacademy.ru/
 
 1. code  mu
 
-1. code camp
+1. https://www.freecodecamp.org/
 
 1. udemy
+
+1. vladilen
+
+1. learn.javascript.ru
 
 1. роллинг  https://github.com/rolling-scopes-school/tasks/tree/master/stage0
 
@@ -12,15 +16,15 @@
 
 1. книга реакт
 
-1. нетология реакт 14 верстка бесплатно
+1. нетология реакт 14,  верстка бесплатно
 
 1. лофтскул верстк 18,5  разраб 24
 
-1. wayup
+1. wayup верстка бесплатно
 
-1. metatit
+1. metatit.com
 
-1. webref
+1. webref.ru
 
 1. intuit
 
