@@ -1,4 +1,4 @@
-1. https://htmlacademy.ru/
+1. https://htmlacademy.ru/  https://l.htmlacademy.ru/professional-skills  https://l.htmlacademy.ru/projects-and-templates
 
 1. code  mu
 
@@ -32,7 +32,7 @@
 
 1. devman 1 ур
 
-1. Front map
+1. Front map   https://timeweb.com/ru/community/articles/kak-stat-frontend-razrabotchikom-detalnyy-roadmap-dlya-nachinayushchih
 
 1. webdev
 1. ulbi
